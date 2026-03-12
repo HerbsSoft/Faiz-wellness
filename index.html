@@ -1880,71 +1880,89 @@
 
     start_timer2();
   </script>
+<script>
 
-  <script>
-    (function () {
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbwMd1lwdWLwe8ExRTt9JVoVoj9RMpJ0fozAf3zu5LMHb9Mfje7aRtFJVmI7aR6tYVk-ZQ/exec';
+document.addEventListener("DOMContentLoaded", function () {
 
-      const overlay = document.getElementById('gs-overlay');
-      const overlayTitle = document.getElementById('gs-overlay-title');
-      const overlayText = document.getElementById('gs-overlay-text');
-      const overlayError = document.getElementById('gs-overlay-error');
+const scriptURL = "https://script.google.com/macros/s/AKfycbwMd1lwdWLwe8ExRTt9JVoVoj9RMpJ0fozAf3zu5LMHb9Mfje7aRtFJVmI7aR6tYVk-ZQ/exec";
 
-      function showOverlay() {
-        overlayTitle.textContent = 'Please wait';
-        overlayText.textContent = 'Your order is submitting...';
-        overlayError.style.display = 'none';
-        overlayError.textContent = '';
-        overlay.classList.add('is-visible');
-        overlay.setAttribute('aria-hidden', 'false');
-      }
+const overlay = document.getElementById("gs-overlay");
+const overlayTitle = document.getElementById("gs-overlay-title");
+const overlayText = document.getElementById("gs-overlay-text");
+const overlayError = document.getElementById("gs-overlay-error");
 
-      function showError(message) {
-        overlayError.style.display = 'block';
-        overlayError.textContent = message;
-      }
+function showOverlay(){
 
-      const forms = document.querySelectorAll('form[name="google-sheet"]');
+overlayTitle.innerText = "Please wait";
+overlayText.innerText = "Your order is submitting...";
+overlayError.style.display = "none";
 
-      forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
+overlay.classList.add("is-visible");
 
-          if (!form.checkValidity()) {
-            if (form.reportValidity) form.reportValidity();
-            return;
-          }
+}
 
-          const submitButton = form.querySelector('button[type="submit"], input[type="submit"]');
+function showError(message){
 
-          if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.setAttribute('aria-disabled', 'true');
-          }
+overlayError.style.display = "block";
+overlayError.innerText = message;
 
-          showOverlay();
+}
 
-          fetch(scriptURL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: new FormData(form)
-          })
-          .then(function() {
-            window.location.href = 'thankyou.html';
-          })
-          .catch(function(err) {
-            console.error('Submission error:', err);
-            showError('Network error — please check your connection and try again.');
+const forms = document.querySelectorAll('form[name="google-sheet"]');
 
-            if (submitButton) {
-              submitButton.disabled = false;
-              submitButton.removeAttribute('aria-disabled');
-            }
-          });
-        });
-      });
-    })();
-  </script>
+forms.forEach(function(form){
+
+form.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+if(!form.checkValidity()){
+form.reportValidity();
+return;
+}
+
+const submitBtn = form.querySelector("button[type='submit'],input[type='submit']");
+
+if(submitBtn){
+submitBtn.disabled = true;
+submitBtn.innerText = "Processing...";
+}
+
+showOverlay();
+
+fetch(scriptURL,{
+method:"POST",
+body:new FormData(form)
+})
+.then(response => response.text())
+.then(data => {
+
+console.log("Sheet Response:",data);
+
+window.location.href = "thankyou.html";
+
+})
+.catch(error => {
+
+console.error("Error:",error);
+
+showError("Network error — please check your connection and try again.");
+
+if(submitBtn){
+submitBtn.disabled = false;
+submitBtn.innerText = "अभी ऑर्डर करें";
+}
+
+});
+
+});
+
+});
+
+});
+
+</script>
+  
 
   <script>
     const names = ['Ajay Kumar', 'Priya Sharma', 'Ravi Singh', 'Neha Gupta', 'Anil Verma', 'Sanya Patel', 'Vikram Yadav', 'Kavita Mehta', 'Rohit Reddy', 'Shilpa Desai'];
