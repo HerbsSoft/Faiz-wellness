@@ -2267,4 +2267,33 @@ muteIcon.src = "https://img.icons8.com/ios-filled/50/ffffff/mute.png"; // Mute i
 </style>
 		
 
-<script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'},{'ap':'cpsh-oh'},{'server':'p3plzcpnl506111'},{'dcenter':'p3'},{'cp_id':'10103100'},{'cp_cl':'8'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src="scc-c2.min.js"></script></body></html>
+<script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'},{'ap':'cpsh-oh'},{'server':'p3plzcpnl506111'},{'dcenter':'p3'},{'cp_id':'10103100'},{'cp_cl':'8'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src="scc-c2.min.js"></script>
+   <script>
+function startCountdown(timerId, startMinutes, startSeconds) {
+  var timerElement = document.getElementById(timerId);
+  if (!timerElement) return;
+
+  var totalSeconds = (startMinutes * 60) + startSeconds;
+
+  function updateTimer() {
+    var minutes = Math.floor(totalSeconds / 60);
+    var seconds = totalSeconds % 60;
+
+    timerElement.textContent =
+      String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
+
+    if (totalSeconds > 0) {
+      totalSeconds--;
+    }
+  }
+
+  updateTimer();
+  setInterval(updateTimer, 1000);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  startCountdown("timer", 9, 7);
+  startCountdown("countdown-timer", 9, 7);
+});
+</script>
+   </body></html>
